@@ -1,0 +1,175 @@
+cabal-version: 3.0
+name:          sc-testing-tools-playground
+version:       0.1.0.0
+synopsis:      Playground and regression test suites for sc-testing-tools
+license:       Apache-2.0
+license-files: LICENSE
+build-type:    Simple
+
+common lang
+  default-language:   Haskell2010
+  default-extensions:
+    DeriveFoldable
+    DeriveFunctor
+    DeriveGeneric
+    DeriveLift
+    DeriveTraversable
+    ExplicitForAll
+    FlexibleContexts
+    GeneralizedNewtypeDeriving
+    ImportQualifiedPost
+    MultiParamTypeClasses
+    NumericUnderscores
+    OverloadedStrings
+    ScopedTypeVariables
+    StandaloneDeriving
+    TemplateHaskell
+
+  ghc-options:
+    -Wall -Wnoncanonical-monad-instances -Wunused-packages
+    -Wincomplete-uni-patterns -Wincomplete-record-updates
+    -Wredundant-constraints -Widentities
+
+library
+  import:          lang
+  exposed-modules: Convex.UseCases.Utils
+  hs-source-dirs:  lib
+  build-depends:
+    , base                      >=4.14.0
+    , cardano-api
+    , cardano-ledger-shelley
+    , convex-base
+    , convex-mockchain
+    , convex-testing-interface
+
+test-suite normal-examples
+  import:         lang
+  type:           exitcode-stdio-1.0
+  hs-source-dirs: test/normal
+  ghc-options:
+    -fobject-code -fno-ignore-interface-pragmas
+    -fno-omit-interface-pragmas -fno-specialise -Wno-unused-packages
+
+  main-is:        Spec.hs
+  other-modules:
+    Auction.Scripts
+    Auction.Spec.Attacks
+    Auction.Spec.Prop
+    Auction.Spec.Unit
+    Auction.Utils
+    Auction.Validator
+    Escrow.Scripts
+    Escrow.Spec.Prop
+    Escrow.Spec.Unit
+    Escrow.Validator
+    MultiPlayerPingPong.Scripts
+    MultiPlayerPingPong.Spec.Prop
+    MultiPlayerPingPong.Spec.Unit
+    MultiPlayerPingPong.Validator
+    RewardWithdrawal.Scripts
+    RewardWithdrawal.Spec.Prop
+    RewardWithdrawal.Spec.Unit
+    RewardWithdrawal.Validator
+    Vesting.Scripts
+    Vesting.Spec.Prop
+    Vesting.Spec.Unit
+    Vesting.Validator
+
+  build-depends:
+    , aeson
+    , base                                         >=4.14.0
+    , bytestring
+    , cardano-api
+    , cardano-ledger-api
+    , cardano-ledger-conway
+    , cardano-ledger-core
+    , cardano-ledger-shelley
+    , containers
+    , convex-base
+    , convex-coin-selection
+    , convex-mockchain
+    , convex-optics
+    , convex-tasty-streaming
+    , convex-testing-interface
+    , convex-wallet
+    , katip
+    , lens
+    , mtl
+    , plutus-ledger-api
+    , plutus-ledger-api:plutus-ledger-api-testlib
+    , plutus-tx
+    , plutus-tx-plugin
+    , pretty-show
+    , prettyprinter
+    , QuickCheck
+    , sc-testing-tools-playground
+    , tasty
+    , tasty-hunit
+    , tasty-quickcheck
+    , text
+
+test-suite flipped-examples
+  import:         lang
+  type:           exitcode-stdio-1.0
+  hs-source-dirs: test/flipped
+  ghc-options:
+    -fobject-code -fno-ignore-interface-pragmas
+    -fno-omit-interface-pragmas -fno-specialise -Wno-unused-packages
+
+  main-is:        Spec.hs
+  other-modules:
+    AuctionFlipped.Scripts
+    AuctionFlipped.Spec.Attacks
+    AuctionFlipped.Spec.Prop
+    AuctionFlipped.Spec.Unit
+    AuctionFlipped.Utils
+    AuctionFlipped.Validator
+    EscrowFlipped.Scripts
+    EscrowFlipped.Spec.Prop
+    EscrowFlipped.Spec.Unit
+    EscrowFlipped.Validator
+    MultiPlayerPingPongFlipped.Scripts
+    MultiPlayerPingPongFlipped.Spec.Prop
+    MultiPlayerPingPongFlipped.Spec.Unit
+    MultiPlayerPingPongFlipped.Validator
+    RewardWithdrawalFlipped.Scripts
+    RewardWithdrawalFlipped.Spec.Prop
+    RewardWithdrawalFlipped.Spec.Unit
+    RewardWithdrawalFlipped.Validator
+    VestingFlipped.Scripts
+    VestingFlipped.Spec.Prop
+    VestingFlipped.Spec.Unit
+    VestingFlipped.Validator
+
+  build-depends:
+    , aeson
+    , base                                         >=4.14.0
+    , bytestring
+    , cardano-api
+    , cardano-ledger-api
+    , cardano-ledger-conway
+    , cardano-ledger-core
+    , cardano-ledger-shelley
+    , containers
+    , convex-base
+    , convex-coin-selection
+    , convex-mockchain
+    , convex-optics
+    , convex-tasty-streaming
+    , convex-testing-interface
+    , convex-wallet
+    , katip
+    , lens
+    , mtl
+    , plutus-ledger-api
+    , plutus-ledger-api:plutus-ledger-api-testlib
+    , plutus-tx
+    , plutus-tx-plugin
+    , pretty-show
+    , prettyprinter
+    , QuickCheck
+    , sc-testing-tools-playground
+    , tasty
+    , tasty-hunit
+    , tasty-quickcheck
+    , text
