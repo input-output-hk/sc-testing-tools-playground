@@ -23,6 +23,7 @@ import Convex.PlutusLedger.V1 (transPubKeyHash, unTransAssetName)
 import Convex.Tasty.QuickCheck qualified as QC
 import Convex.TestingInterface (AddressLabeler (..), TestingInterface (..), ThreatModelsFor (..), mockWalletAddressLabeler, propRunActions)
 import Convex.ThreatModel.DoubleSatisfaction (doubleSatisfaction)
+import Convex.ThreatModel.InputDuplication (inputDuplication)
 import Convex.ThreatModel.InvalidDatumIndex (invalidDatumIndexAttack)
 import Convex.ThreatModel.LargeData (largeDataAttack)
 import Convex.ThreatModel.LargeValue (largeValueAttack)
@@ -263,7 +264,8 @@ instance ThreatModelsFor AuctionModel where
   -- signatory-removal attacks never find the datum/redeemer/witness shape
   -- they target here.
   threatModels =
-    [ invalidDatumIndexAttack
+    [ inputDuplication
+    , invalidDatumIndexAttack
     , missingOutputDatumAttack
     , negativeIntegerAttack
     , outputDatumHashMissingAttack
